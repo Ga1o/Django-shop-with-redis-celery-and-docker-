@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:5.0.7-alpine
+
+  django:
+    container_name: django-deploy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/app
+    command: bash -c "mkdir -p media/product_images && python manage.py collectstatic --no-input  && python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - redis
+
+  celery:
+    container_name: celery-deploy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: celery -A project worker --loglevel=info -P eventlet
+    volumes:
+      - .:/app
+    depends_on:
+      - django
+
