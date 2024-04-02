@@ -6,6 +6,7 @@ from django.utils.safestring import mark_safe
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
+    fields = ['product_name', 'product_slug', 'product_desc', 'product_image', 'product_price', 'product_category']
     list_display = ('id', 'show_img', 'product_name', 'product_price', 'product_created')
     list_display_links = ('id', 'show_img', 'product_name')
     prepopulated_fields = {'product_slug': ('product_name',)}

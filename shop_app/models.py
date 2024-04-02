@@ -19,6 +19,9 @@ class Product(models.Model):
         verbose_name_plural = 'Продукты'
         index_together = (('id', 'product_slug'),)
         ordering = ('-product_created',)
+        indexes = [
+            models.Index(fields=['product_name', 'product_slug', '-product_created'])
+        ]
 
     def __str__(self):
         return self.product_name
