@@ -7,3 +7,9 @@ Libraries:
 - eventlet
 - pillow
 - python-dotenv
+
+For start project:
+- git clone url
+- cd project/
+- docker-compose up --build
+- create superuser
