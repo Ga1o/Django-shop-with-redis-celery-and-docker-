@@ -6,3 +6,4 @@ Libraries:
 - celery
 - eventlet
 - pillow
+- python-dotenv
